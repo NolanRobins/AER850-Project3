@@ -3,8 +3,8 @@ from ultralytics import YOLO
 IMAGE_SIZE = 1216
 
 def train_model():
-    model = YOLO("best.pt")
-    results = model.train(data = "data.yaml", epochs = 100, imgsz = IMAGE_SIZE, batch = 2)
+    model = YOLO("yolov8n.pt")
+    results = model.train(data = "data.yaml", epochs = 600, imgsz = IMAGE_SIZE, batch = 2)
 
 def predict_model():
     model = YOLO("runs/detect/train8/weights/best.pt")

@@ -1,8 +1,8 @@
 task: detect
 mode: train
-model: best.pt
+model: yolov8n.pt
 data: data.yaml
-epochs: 100
+epochs: 600
 patience: 50
 batch: 2
 imgsz: 1216
