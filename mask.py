@@ -13,6 +13,8 @@ def main():
 
     motherboard_img_gray = cv2.adaptiveThreshold(motherboard_img_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 55, 5)
 
+    cv2.imwrite(OUTPUT_DIR + "motherboard_greyed_output.jpeg", motherboard_img_gray)
+
     # lower_gray = 100
     # upper_gray = 100
     # gray_mask = cv2.inRange(motherboard_img_gray, lower_gray, upper_gray)
@@ -31,12 +33,17 @@ def main():
     #     if area < 70000:
     #         cv2.drawContours(edges, [c], 0, 255, -1)
     #     continue
+    mask_img = np.zeros_like(motherboard_img)
+    contour_img = np.ones_like(motherboard_img)*255
 
-    contour_img = np.zeros_like(motherboard_img)
+    cv2.drawContours(image=contour_img, contours=contours, contourIdx=-1, color=(0, 0, 0))
 
-    cv2.drawContours(image=contour_img, contours=[max(contours, key = cv2.contourArea)], contourIdx=-1, color=(255, 255, 255), thickness=cv2.FILLED)
-    
-    masked_img = cv2.bitwise_and(contour_img,  motherboard_img)
+    cv2.drawContours(image=mask_img, contours=[max(contours, key = cv2.contourArea)], contourIdx=-1, color=(255, 255, 255), thickness=cv2.FILLED)
+
+    cv2.imwrite(OUTPUT_DIR + "contours_output.jpeg", contour_img)
+    cv2.imwrite(OUTPUT_DIR + "mask_output.jpeg", mask_img)
+
+    masked_img = cv2.bitwise_and(mask_img,  motherboard_img)
 
 
     print(len(contours), "objects were found in this image.")
