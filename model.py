@@ -9,15 +9,15 @@ def train_model():
     results = model.train(data = "data.yaml", epochs = 600, imgsz = IMAGE_SIZE, batch = 2)
 
 def resume_training():
-    model = YOLO("runs/detect/train/weights/last.pt")
+    model = YOLO("runs/detect/train - 600 epochs - yolo8m/weights/last.pt")
     results = model.train(data = "data.yaml", epochs = 600, imgsz = IMAGE_SIZE, batch = 2, resume = True)
 
 def predict_model():
-    model = YOLO("runs/detect/train/weights/best.pt")
-    results = model.predict('datasets/evaluation', save=False, imgsz = IMAGE_SIZE, conf = 0.5, max_det = 2000)
+    model = YOLO("runs/detect/train - 600 epochs - yolo8m/weights/best.pt")
+    results = model.predict('datasets/evaluation', save=True, imgsz = IMAGE_SIZE, conf = 0.1, max_det = 2000)
 
-    for pred in results:
-        draw_prediction(pred.cpu())
+    # for pred in results:
+    #     draw_prediction(pred.cpu())
 
 def draw_prediction(prediction):
     image = cv2.imread(prediction.path)
