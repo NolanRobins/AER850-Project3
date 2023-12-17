@@ -14,10 +14,10 @@ def resume_training():
 
 def predict_model():
     model = YOLO("runs/detect/train - 600 epochs - yolo8m/weights/best.pt")
-    results = model.predict('datasets/evaluation', save=True, imgsz = IMAGE_SIZE, conf = 0.1, max_det = 2000)
+    results = model.predict('datasets/evaluation', save=False, imgsz = IMAGE_SIZE, conf = 0.1, max_det = 2000)
 
-    # for pred in results:
-    #     draw_prediction(pred.cpu())
+    for pred in results:
+        draw_prediction(pred.cpu())
 
 def draw_prediction(prediction):
     image = cv2.imread(prediction.path)
